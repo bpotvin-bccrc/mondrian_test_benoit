@@ -49,19 +49,23 @@ def secondary_names = []
     def referenceKey = "secondary_reference_${i}"
     def versionKey = "secondary_reference_${i}_version"
     def nameKey = "secondary_reference_${i}_name"
-
-    def ref = params[secondary_reference_${i}}]
-    println ${ref}
-    exit1
     
     // Debugging print to see the values in params for the keys
     println "Checking: ${referenceKey}, ${versionKey}, ${nameKey}"
-    println "Value: ${params[secondary_reference_${i}}], ${params.versionKey}, ${params.nameKey}"
-    exit 1
+    println "Value: ${params.get(referenceKey)}, ${params.get(versionKey)}, ${params.get(nameKey)}"
+    
     // Check if all keys exist in the params object and are not null
     def ref = params[referenceKey]
+
+    println "Found secondary reference ${i}: ${ref}"
+
+    exit 1
+
+
+
+
     def version = params[versionKey]
-    def name = params[nameKey] ?: "default_name" // Using a default if missing
+    def name = params.get(nameKey) ?: "default_name" // Using a default if missing
 
     // If the reference exists
     if (ref) {
@@ -78,7 +82,6 @@ def secondary_names = []
 
 // Print the resulting lists
 println "Secondary Names: ${secondary_names}"
-exit 1
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,9 +106,9 @@ workflow MONDRIAN_QC_PIPELINE{
         primary_reference,
         primary_reference_version,
         primary_reference_name,
-        secondary_references,        
-        secondary_versions,
-        secondary_names,
+        *secondary_references,        
+        *secondary_versions,
+        *secondary_names,
         gc_wig,
         map_wig,
         quality_classifier_training_data,
