@@ -45,11 +45,13 @@ def secondary_versions = []
 def secondary_names = []
 
 (1..10).each { i ->
-    def ref = params.get("secondary_reference_${i}")
-    if (ref) {
-        secondary_references << file(ref)
-        secondary_versions << params.get("secondary_reference_${i}_version")
-        secondary_names << params.get("secondary_reference_${i}_name")
+    if (params.containsKey("secondary_reference_${i}")) {
+        def ref = params.get("secondary_reference_${i}")
+        if (ref) {
+            secondary_references << file(ref)
+            secondary_versions << params.get("secondary_reference_${i}_version")
+            secondary_names << params.get("secondary_reference_${i}_name")
+        }
     }
 }
 
