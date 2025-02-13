@@ -39,7 +39,6 @@ fastqs = file(params.fastqs)
 metadata = file(params.metadata)
 sample_id = params.sample_id
 
-println "Params Keys: ${params.keySet()}"
 
 def secondary_references = []
 def secondary_versions = []
@@ -51,7 +50,7 @@ def secondary_names = []
     def versionKey = "secondary_reference_${i}_version"
     def nameKey = "secondary_reference_${i}_name"
     
-    if (params.containsKey(referenceKey)) {
+    if (referenceKey in params) {
     
         // Check if all keys exist in the params object and are not null
         def ref = params[referenceKey]
