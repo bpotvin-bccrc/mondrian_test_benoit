@@ -40,22 +40,22 @@ metadata = file(params.metadata)
 sample_id = params.sample_id
 
 
-
 def secondary_references = []
 def secondary_versions = []
 def secondary_names = []
 
 (1..10).each { i ->
-    if (params.containsKey("secondary_reference_${i}")) {
-        secondary_references << file(params["secondary_reference_${i}"])
-        secondary_versions << params["secondary_reference_${i}_version"]
-        secondary_names << params["secondary_reference_${i}_name"]
+    def ref = params.get("secondary_reference_${i}")
+    if (ref) {
+        secondary_references << file(ref)
+        secondary_versions << params.get("secondary_reference_${i}_version")
+        secondary_names << params.get("secondary_reference_${i}_name")
     }
 }
 
-println "${secondary_references}"
+println "${secondary_names}"
 exit 1
-    
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
@@ -79,9 +79,9 @@ workflow MONDRIAN_QC_PIPELINE{
         primary_reference,
         primary_reference_version,
         primary_reference_name,
-        secondary_references,        
-        secondary_versions,
-        secondary_names,
+        *secondary_references,        
+        *secondary_versions,
+        *secondary_names,
         gc_wig,
         map_wig,
         quality_classifier_training_data,
