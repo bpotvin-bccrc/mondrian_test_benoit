@@ -53,7 +53,7 @@ def secondary_names = []
     def nameKey = "secondary_reference_${i}_name"
 
 
-    if (params.containsKey("$referenceKey")) {
+    if (params."$referenceKey") {
         println "yes"
         // Check if all keys exist in the params object and are not null
         def ref = params[referenceKey]
