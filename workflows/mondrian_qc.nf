@@ -52,7 +52,7 @@ def secondary_names = []
     
     // Debugging print to see the values in params for the keys
     println "Checking: ${referenceKey}, ${versionKey}, ${nameKey}"
-    println "Value: ${params.get(referenceKey)}, ${params.get(versionKey)}, ${params.get(nameKey)}"
+    println "Value: ${params.referenceKey}, ${params.versionKey}, ${paramsnameKey}"
     
     // Check if all keys exist in the params object and are not null
     def ref = params[referenceKey]
