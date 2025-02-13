@@ -46,6 +46,8 @@ def secondary_names = []
 
 (1..10).each { i ->
     if (params.containsKey("secondary_reference_${i}")) {
+        println "DEBUG yes"
+        exit 1
         secondary_references << file(params["secondary_reference_${i}"])
         secondary_versions << params["secondary_reference_${i}_version"]
         secondary_names << params["secondary_reference_${i}_name"]
