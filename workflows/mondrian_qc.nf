@@ -50,7 +50,7 @@ def secondary_names = []
     def versionKey = "secondary_reference_${i}_version"
     def nameKey = "secondary_reference_${i}_name"
     
-    if (referenceKey in params) {
+    if (params[referenceKey]) {
     
         // Check if all keys exist in the params object and are not null
         def ref = params[referenceKey]
