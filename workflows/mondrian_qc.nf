@@ -45,16 +45,14 @@ def secondary_references = []
 def secondary_versions = []
 def secondary_names = []
 
-(1..10).each { i ->
+(1..10).each { i -> 
 
-    if (params.containsKey("secondary_reference_${i}")) {
-
-        def referenceKey = "secondary_reference_${i}"
-        def versionKey = "secondary_reference_${i}_version"
-        def nameKey = "secondary_reference_${i}_name"
-        
-
-        
+    def referenceKey = "secondary_reference_${i}"
+    def versionKey = "secondary_reference_${i}_version"
+    def nameKey = "secondary_reference_${i}_name"
+    
+    if (params.containsKey(referenceKey)) {
+    
         // Check if all keys exist in the params object and are not null
         def ref = params[referenceKey]
 
@@ -70,6 +68,7 @@ def secondary_names = []
             
         }
     }
+    
 }
 
 // Print the resulting lists
