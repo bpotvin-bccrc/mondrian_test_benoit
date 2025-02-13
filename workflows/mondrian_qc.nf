@@ -74,6 +74,7 @@ def secondary_names = []
 
 // Print the resulting lists
 println "Secondary Names: ${secondary_names}"
+exit 1
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,9 +99,9 @@ workflow MONDRIAN_QC_PIPELINE{
         primary_reference,
         primary_reference_version,
         primary_reference_name,
-        *secondary_references,        
-        *secondary_versions,
-        *secondary_names,
+        secondary_references,        
+        secondary_versions,
+        secondary_names,
         gc_wig,
         map_wig,
         quality_classifier_training_data,
