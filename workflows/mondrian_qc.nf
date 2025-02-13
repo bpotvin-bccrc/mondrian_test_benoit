@@ -60,10 +60,6 @@ for (int i = 2; i <= 10; i++) {
         this."${referenceParam}" = file(params[referenceParam])
         this."${versionParam}" = params[versionParam]
         this."${nameParam}" = params[nameParam]
-    } else {
-        this."${referenceParam}" = file("$baseDir/docs/assets/dummy_file.txt")
-        this."${versionParam}" = null
-        this."${nameParam}" = null
     }
 }
 
