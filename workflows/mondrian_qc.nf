@@ -39,20 +39,25 @@ fastqs = file(params.fastqs)
 metadata = file(params.metadata)
 sample_id = params.sample_id
 
-println "params: ${params}"
 def secondary_references = []
 def secondary_versions = []
 def secondary_names = []
 
 (1..10).each { i ->
-    if (params.containsKey("secondary_reference_${i}")) {
-        println "params: ${params}"
-        secondary_references << file(params.get("secondary_reference_${i}"))
-        secondary_versions << params.get("secondary_reference_${i}_version")
-        secondary_names << params.get("secondary_reference_${i}_name")
+    def referenceKey = "secondary_reference_${i}"
+    def versionKey = "secondary_reference_${i}_version"
+    def nameKey = "secondary_reference_${i}_name"
+
+    // Check if the keys exist in the params object and if they are not null
+    if (params.containsKey(referenceKey)) {
+        def ref = params.get(referenceKey)
+        secondary_references << file(ref)
+        secondary_versions << params.get(versionKey)
+        secondary_names << params.get(nameKey)
     }
 }
 
+// Print the contents of secondary_names
 println "Secondary Names: ${secondary_names}"
 exit 1
 
