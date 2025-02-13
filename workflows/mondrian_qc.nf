@@ -55,7 +55,7 @@ def secondary_names = []
     }
 }
 
-println "${secondary_names}"
+println "Secondary Names: ${secondary_names}"
 exit 1
 
 /*
