@@ -40,6 +40,7 @@ metadata = file(params.metadata)
 sample_id = params.sample_id
 
 
+
 def secondary_references = []
 def secondary_versions = []
 def secondary_names = []
@@ -51,6 +52,13 @@ def secondary_names = []
         secondary_versions << params.get("secondary_reference_${i}_version".toString(), null)?.toString()
         secondary_names << params.get("secondary_reference_${i}_name".toString(), null)?.toString()
     }
+}
+
+// Ensure we fill up any missing secondary references with null or dummy values
+while (secondary_references.size() < 10) {
+    secondary_references << file("$baseDir/docs/assets/dummy_file.txt")  // or an appropriate dummy file
+    secondary_versions << null
+    secondary_names << null
 }
 
 /*
