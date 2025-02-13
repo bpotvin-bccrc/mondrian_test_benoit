@@ -39,7 +39,7 @@ fastqs = file(params.fastqs)
 metadata = file(params.metadata)
 sample_id = params.sample_id
 
-
+println "params: ${params}"
 def secondary_references = []
 def secondary_versions = []
 def secondary_names = []
