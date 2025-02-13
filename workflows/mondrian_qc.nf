@@ -52,15 +52,17 @@ sample_id = params.sample_id
 //}
 
 for (int i = 2; i <= 10; i++) {
-    def referenceParam = "secondary_reference_${i}"
-    def versionParam = "secondary_reference_${i}_version"
-    def nameParam = "secondary_reference_${i}_name"
 
-    if (params[referenceParam]) {
-        this."${referenceParam}" = file(params[referenceParam])
-        this."${versionParam}" = params[versionParam]
-        this."${nameParam}" = params[nameParam]
-    }
+    if (params.containsKey("secondary_reference_${i}")) {
+        def referenceParam = "secondary_reference_${i}"
+        def versionParam = "secondary_reference_${i}_version"
+        def nameParam = "secondary_reference_${i}_name"
+
+        if (params[referenceParam]) {
+            this."${referenceParam}" = file(params[referenceParam])
+            this."${versionParam}" = params[versionParam]
+            this."${nameParam}" = params[nameParam]
+        }
 }
 
 
