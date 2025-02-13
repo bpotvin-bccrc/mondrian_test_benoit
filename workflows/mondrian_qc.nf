@@ -51,8 +51,7 @@ def secondary_names = []
     def referenceKey = "secondary_reference_${i}"
     def versionKey = "secondary_reference_${i}_version"
     def nameKey = "secondary_reference_${i}_name"
-    
-    println ${referenceKey}
+
 
     if (params.containsKey("$referenceKey")) {
         println "yes"
