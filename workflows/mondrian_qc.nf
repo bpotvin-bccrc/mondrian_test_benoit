@@ -47,29 +47,27 @@ def secondary_names = []
 
 (1..10).each { i -> 
 
+
+
     def referenceKey = "secondary_reference_${i}"
     def versionKey = "secondary_reference_${i}_version"
     def nameKey = "secondary_reference_${i}_name"
 
+    println(params.get("$referenceKey", null))
+
     def key = params."$referenceKey" ?: null
-
-
     if (key) {
-        println "yes"
-        // Check if all keys exist in the params object and are not null
+
+    
         def ref = params[referenceKey]
+        def version = params[versionKey]
+        def name = params[nameKey]
 
-        // If the reference exists
-        if (ref) {
-
-            def version = params[versionKey]
-            def name = params[nameKey]
-
-            secondary_references << file(ref)
-            secondary_versions << version
-            secondary_names << name
-            
-        }
+        secondary_references << file(ref)
+        secondary_versions << version
+        secondary_names << name
+        
+        
     }
     
 }
