@@ -41,7 +41,6 @@ sample_id = params.sample_id
 
 
 
-
 def secondary_references = []
 def secondary_versions = []
 def secondary_names = []
@@ -52,8 +51,10 @@ def secondary_names = []
     def versionKey = "secondary_reference_${i}_version"
     def nameKey = "secondary_reference_${i}_name"
 
+    def key = params."$referenceKey" ?: null
 
-    if (params."$referenceKey") {
+
+    if (key) {
         println "yes"
         // Check if all keys exist in the params object and are not null
         def ref = params[referenceKey]
@@ -70,14 +71,9 @@ def secondary_names = []
             
         }
     }
-    else{
-        println "no"
-    }
     
 }
 
-// Print the resulting lists
-println "Secondary Names: ${secondary_names}"
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
