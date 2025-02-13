@@ -41,16 +41,6 @@ sample_id = params.sample_id
 
 
 
-//if(params.secondary_reference_2){
-//    secondary_reference_2 = file(params.secondary_reference_2)
-//    secondary_reference_2_version = params.secondary_reference_2_version
-//    secondary_reference_2_name = params.secondary_reference_2_name
-//} else {
-//    secondary_reference_2 = file("$baseDir/docs/assets/dummy_file.txt")
-//    secondary_reference_2_version = null
-//    secondary_reference_2_name = null
-//}
-
 def secondary_references = []
 def secondary_versions = []
 def secondary_names = []
@@ -79,28 +69,6 @@ include { MONDRIAN_QC         } from '../subworkflows/local/qc'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 workflow MONDRIAN_QC_PIPELINE{
-
-
-    //MONDRIAN_QC(
-    //    fastqs,
-    //    metadata,
-    //    primary_reference,
-    //    primary_reference_version,
-    //    primary_reference_name,
-    //    secondary_reference_1,
-    //    secondary_reference_1_version,
-    //    secondary_reference_1_name,
-    //    secondary_reference_2,
-    //    secondary_reference_2_version,
-    //    secondary_reference_2_name,
-    //    gc_wig,
-    //    map_wig,
-    //    quality_classifier_training_data,
-    //    repeats_satellite_regions,
-    //    chromosomes,
-    //    sample_id
-    //)
-
 
 
     MONDRIAN_QC(
