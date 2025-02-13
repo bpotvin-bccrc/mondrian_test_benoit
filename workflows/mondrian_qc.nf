@@ -50,34 +50,22 @@ def secondary_names = []
     def versionKey = "secondary_reference_${i}_version"
     def nameKey = "secondary_reference_${i}_name"
     
-    // Debugging print to see the values in params for the keys
-    println "Checking: ${referenceKey}, ${versionKey}, ${nameKey}"
-    println "Value: ${params.get(referenceKey)}, ${params.get(versionKey)}, ${params.get(nameKey)}"
+
     
     // Check if all keys exist in the params object and are not null
     def ref = params[referenceKey]
 
-    println "Found secondary reference ${i}: ${ref}"
-
-    exit 1
-
-
-
-
-    def version = params[versionKey]
-    def name = params.get(nameKey) ?: "default_name" // Using a default if missing
-
     // If the reference exists
     if (ref) {
+
+        def version = params[versionKey]
+        def name = params[nameKey]
+
         secondary_references << file(ref)
         secondary_versions << version
         secondary_names << name
         
-        // Debugging output to see what is being added
-        println "Found secondary reference ${i}: ${ref}, version: ${version}, name: ${name}"
-    } else {
-        println "Missing reference for ${referenceKey}"
-    }
+    } 
 }
 
 // Print the resulting lists
