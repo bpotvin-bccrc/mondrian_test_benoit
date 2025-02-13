@@ -51,20 +51,18 @@ sample_id = params.sample_id
 //    secondary_reference_2_name = null
 //}
 
-for (int i = 2; i <= 10; i++) {
+def secondary_references = []
+def secondary_versions = []
+def secondary_names = []
 
+(1..10).each { i ->
     if (params.containsKey("secondary_reference_${i}")) {
-        def referenceParam = "secondary_reference_${i}"
-        def versionParam = "secondary_reference_${i}_version"
-        def nameParam = "secondary_reference_${i}_name"
-
-        if (params[referenceParam]) {
-            this."${referenceParam}" = file(params[referenceParam])
-            this."${versionParam}" = params[versionParam]
-            this."${nameParam}" = params[nameParam]
-        }
+        secondary_references << file(params["secondary_reference_${i}"])
+        secondary_versions << params["secondary_reference_${i}_version"]
+        secondary_names << params["secondary_reference_${i}_name"]
     }
 }
+
 
 
 /*
@@ -104,19 +102,6 @@ workflow MONDRIAN_QC_PIPELINE{
     //)
 
 
-
-    def secondary_references = []
-    def secondary_versions = []
-    def secondary_names = []
-
-    params.keySet().findAll { it.startsWith('secondary_reference_') && !it.endsWith('_version') && !it.endsWith('_name') }.each { key ->
-        def versionKey = "${key}_version"
-        def nameKey = "${key}_name"
-
-        secondary_references << (params[key] ? file(params[key]) : file("$baseDir/docs/assets/dummy_file.txt"))
-        secondary_versions << (params[versionKey] ?: null)
-        secondary_names << (params[nameKey] ?: null)
-    }
 
     MONDRIAN_QC(
         fastqs,
