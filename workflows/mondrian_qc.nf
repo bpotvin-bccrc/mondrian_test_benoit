@@ -49,6 +49,10 @@ def secondary_names = []
     def referenceKey = "secondary_reference_${i}"
     def versionKey = "secondary_reference_${i}_version"
     def nameKey = "secondary_reference_${i}_name"
+
+    def ref = params[secondary_reference_${i}}]
+    println ${ref}
+    exit1
     
     // Debugging print to see the values in params for the keys
     println "Checking: ${referenceKey}, ${versionKey}, ${nameKey}"
