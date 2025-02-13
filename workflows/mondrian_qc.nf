@@ -55,9 +55,9 @@ def secondary_names = []
     println "Value: ${params.get(referenceKey)}, ${params.get(versionKey)}, ${params.get(nameKey)}"
     
     // Check if all keys exist in the params object and are not null
-    def ref = params.get(referenceKey)
-    def version = params.get(versionKey)
-    def name = params.get(nameKey) ?: "default_name" // Using a default if missing
+    def ref = params[referenceKey]
+    def version = params[versionKey]
+    def name = params[nameKey] ?: "default_name" // Using a default if missing
 
     // If the reference exists
     if (ref) {
