@@ -46,26 +46,30 @@ def secondary_versions = []
 def secondary_names = []
 
 (1..10).each { i ->
-    def referenceKey = "secondary_reference_${i}"
-    def versionKey = "secondary_reference_${i}_version"
-    def nameKey = "secondary_reference_${i}_name"
-    
 
-    
-    // Check if all keys exist in the params object and are not null
-    def ref = params[referenceKey]
+    if (params.containsKey("secondary_reference_${i}")) {
 
-    // If the reference exists
-    if (ref) {
-
-        def version = params[versionKey]
-        def name = params[nameKey]
-
-        secondary_references << file(ref)
-        secondary_versions << version
-        secondary_names << name
+        def referenceKey = "secondary_reference_${i}"
+        def versionKey = "secondary_reference_${i}_version"
+        def nameKey = "secondary_reference_${i}_name"
         
-    } 
+
+        
+        // Check if all keys exist in the params object and are not null
+        def ref = params[referenceKey]
+
+        // If the reference exists
+        if (ref) {
+
+            def version = params[versionKey]
+            def name = params[nameKey]
+
+            secondary_references << file(ref)
+            secondary_versions << version
+            secondary_names << name
+            
+        }
+    }
 }
 
 // Print the resulting lists
@@ -94,9 +98,9 @@ workflow MONDRIAN_QC_PIPELINE{
         primary_reference,
         primary_reference_version,
         primary_reference_name,
-        *secondary_references,        
-        *secondary_versions,
-        *secondary_names,
+        secondary_references,        
+        secondary_versions,
+        secondary_names,
         gc_wig,
         map_wig,
         quality_classifier_training_data,
