@@ -39,15 +39,14 @@ fastqs = file(params.fastqs)
 metadata = file(params.metadata)
 sample_id = params.sample_id
 
-
+println "All parameters: ${params}"
+exit 1
 def secondary_references = []
 def secondary_versions = []
 def secondary_names = []
 
 (1..10).each { i ->
     if (params.containsKey("secondary_reference_${i}")) {
-        println "DEBUG yes"
-        exit 1
         secondary_references << file(params["secondary_reference_${i}"])
         secondary_versions << params["secondary_reference_${i}_version"]
         secondary_names << params["secondary_reference_${i}_name"]
