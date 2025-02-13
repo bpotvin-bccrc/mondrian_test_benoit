@@ -49,11 +49,11 @@ def secondary_names = []
 
 
 
-    def referenceKey = "secondary_reference_${i}"
-    def versionKey = "secondary_reference_${i}_version"
-    def nameKey = "secondary_reference_${i}_name"
+    def referenceKey = "secondary_reference_${i}".toString()
+    def versionKey = "secondary_reference_${i}_version".toString()
+    def nameKey = "secondary_reference_${i}_name".toString()
 
-    println(params.get("$referenceKey", null))
+    println(params.get(referenceKey, null))
 
     def key = params."$referenceKey" ?: null
     if (key) {
