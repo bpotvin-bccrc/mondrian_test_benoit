@@ -39,6 +39,8 @@ fastqs = file(params.fastqs)
 metadata = file(params.metadata)
 sample_id = params.sample_id
 
+println "Params Keys: ${params.keySet()}"
+
 def secondary_references = []
 def secondary_versions = []
 def secondary_names = []
