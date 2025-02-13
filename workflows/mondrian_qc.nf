@@ -45,11 +45,11 @@ def secondary_versions = []
 def secondary_names = []
 
 (1..10).each { i ->
-    def ref = params.get("secondary_reference_${i}")
+    def ref = params.get("secondary_reference_${i}", null)
     if (ref) {
         secondary_references << file(ref)
-        secondary_versions << params.get("secondary_reference_${i}_version")
-        secondary_names << params.get("secondary_reference_${i}_name")
+        secondary_versions << params.get("secondary_reference_${i}_version", null)
+        secondary_names << params.get("secondary_reference_${i}_name", null)
     }
 }
 
