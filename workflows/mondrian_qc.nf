@@ -48,17 +48,15 @@ def secondary_names = []
 (1..10).each { i -> 
 
 
-
     def referenceKey = "secondary_reference_${i}".toString()
     def versionKey = "secondary_reference_${i}_version".toString()
     def nameKey = "secondary_reference_${i}_name".toString()
 
-    println(params.get(referenceKey, null))
 
     def key = params."$referenceKey" ?: null
+    
     if (key) {
 
-    
         def ref = params[referenceKey]
         def version = params[versionKey]
         def name = params[nameKey]
@@ -66,7 +64,6 @@ def secondary_names = []
         secondary_references << file(ref)
         secondary_versions << version
         secondary_names << name
-        
         
     }
     
