@@ -63,6 +63,7 @@ for (int i = 2; i <= 10; i++) {
             this."${versionParam}" = params[versionParam]
             this."${nameParam}" = params[nameParam]
         }
+    }
 }
 
 
