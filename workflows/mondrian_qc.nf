@@ -46,21 +46,16 @@ def secondary_versions = []
 def secondary_names = []
 
 (1..10).each { i ->
-    def ref = params.get("secondary_reference_${i}".toString(), null)
-    if (ref) {
-        secondary_references << file(ref.toString())
-        secondary_versions << params.get("secondary_reference_${i}_version".toString(), null)?.toString()
-        secondary_names << params.get("secondary_reference_${i}_name".toString(), null)?.toString()
+    if (params.containsKey("secondary_reference_${i}")) {
+        secondary_references << file(params["secondary_reference_${i}"])
+        secondary_versions << params["secondary_reference_${i}_version"]
+        secondary_names << params["secondary_reference_${i}_name"]
     }
 }
 
-// Ensure we fill up any missing secondary references with null or dummy values
-while (secondary_references.size() < 10) {
-    secondary_references << file("$baseDir/docs/assets/dummy_file.txt")  // or an appropriate dummy file
-    secondary_versions << null
-    secondary_names << null
-}
-
+println "${secondary_references}"
+exit 1
+    
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     IMPORT LOCAL MODULES/SUBWORKFLOWS
