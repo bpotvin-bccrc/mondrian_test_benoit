@@ -39,21 +39,12 @@ workflow MONDRIAN_QC{
     main:
 
 
-    println "primary_reference ${primary_reference}"
-    println "primary_reference_version ${primary_reference_version}"
-    println "primary_reference_name ${primary_reference_name}"
-
-    println "secondary_references ${secondary_references}"
-    println "secondary_versions ${secondary_versions}"
-    println "secondary_names ${secondary_names}"
-
-
-    secondary_references.eachWithIndex { item, index ->
-        println "item ${item}"
-        //dynamicVariables."item_${index + 1}" = item
-    }
-
-    exit 1
+    //println "primary_reference ${primary_reference}"
+    //println "primary_reference_version ${primary_reference_version}"
+    //println "primary_reference_name ${primary_reference_name}"
+    //println "secondary_references ${secondary_references}"
+    //println "secondary_versions ${secondary_versions}"
+    //println "secondary_names ${secondary_names}"
 
 
     fastqs_data = Channel
@@ -64,6 +55,31 @@ workflow MONDRIAN_QC{
     flowcells = fastqs_data.map{row -> tuple(row.cellid, row.flowcellid)}.groupTuple(by: 0)
     lanes1 = fastqs_data.map{row -> tuple(row.cellid, row.fastq1)}.groupTuple(by: 0)
     lanes2 = fastqs_data.map{row -> tuple(row.cellid, row.fastq2)}.groupTuple(by: 0)
+
+
+    fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map { row ->
+        // Create a tuple starting with the primary data
+        def tuple = [
+            row[0], row[1], row[2], row[3], row[4],
+            primary_reference, primary_reference_version, primary_reference_name,
+            primary_reference + '.fai', primary_reference + '.amb', primary_reference + '.ann',
+            primary_reference + '.bwt', primary_reference + '.pac', primary_reference + '.sa'
+        ]
+
+        // Loop through secondary references, versions, and names and add them dynamically
+        (0..<secondary_references.size()).each { i ->
+            // Add the secondary reference, version, name and related files
+            tuple += [
+                secondary_references[i], secondary_versions[i], secondary_names[i],
+                secondary_references[i] + '.fai', secondary_references[i] + '.amb', secondary_references[i] + '.ann',
+                secondary_references[i] + '.bwt', secondary_references[i] + '.pac', secondary_references[i] + '.sa'
+            ]
+        }
+
+        // Add metadata YAML at the end of the tuple
+        tuple += [metadata_yaml]
+        return tuple
+    }
 
     //fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map{
     //    row -> tuple(
