@@ -64,14 +64,12 @@ workflow MONDRIAN_QC{
             ]
         }
 
-        println "here ${tuple}"
-
         tuple += [metadata_yaml]
 
         return tuple
     }
 
-    ALIGN(fastqs)
+    ALIGN(secondary_references.size(), fastqs)
 
     CONCATALIGNMETRICS(ALIGN.out.collect{it[3]}, ALIGN.out.collect{it[4]}, sample_id+'_alignment_metrics', false)
     CONCATGCMETRICS(ALIGN.out.collect{it[5]}, ALIGN.out.collect{it[6]}, sample_id+'_gc_metrics', true)

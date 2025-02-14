@@ -5,29 +5,26 @@ process ALIGN {
     label 'process_high'
 
   input:
-    //tuple(
-    //  val(cell_id), val(lanes), val(flowcells), path(fastqs1), path(fastqs2),
-    //  path(primary_reference), val(primary_reference_version), val(primary_reference_name),
-    //  path(primary_reference_fai), path(primary_reference_amb),path(primary_reference_ann),
-    //  path(primary_reference_bwt),path(primary_reference_pac),path(primary_reference_sa),
-    //  path(secondary_reference_1), val(secondary_reference_1_version), val(secondary_reference_1_name),
-    //  path(secondary_reference_1_fai), path(secondary_reference_1_amb),path(secondary_reference_1_ann),
-    //  path(secondary_reference_1_bwt),path(secondary_reference_1_pac),path(secondary_reference_1_sa),
-    //  path(secondary_reference_2), val(secondary_reference_2_version), val(secondary_reference_2_name),
-    //  path(secondary_reference_2_fai), path(secondary_reference_2_amb),path(secondary_reference_2_ann),
-    //  path(secondary_reference_2_bwt),path(secondary_reference_2_pac),path(secondary_reference_2_sa),
-    //  path(metadata)
-    //)
-    
     tuple(
-      val(cell_id), val(lanes), val(flowcells), path(fastqs1), path(fastqs2),
+        val(cell_id), val(lanes), val(flowcells), path(fastqs1), path(fastqs2),
         path(primary_reference), val(primary_reference_version), val(primary_reference_name),
         path(primary_reference_fai), path(primary_reference_amb), path(primary_reference_ann),
-        path(primary_reference_bwt), path(primary_reference_pac), path(primary_reference_sa),
-        path(secondary_references), val(secondary_versions), val(secondary_names),
-        path(secondary_indices),
+        path(primary_reference_bwt), path(primary_reference_pac), path(primary_reference_sa)
+    ) + (0..<secondary_references.size()).collect { i ->
+        [
+            path(secondary_references[i]),
+            val(secondary_versions[i]),
+            val(secondary_names[i]),
+            path(secondary_references[i] + '.fai'),
+            path(secondary_references[i] + '.amb'),
+            path(secondary_references[i] + '.ann'),
+            path(secondary_references[i] + '.bwt'),
+            path(secondary_references[i] + '.pac'),
+            path(secondary_references[i] + '.sa')
+        ]
+    } + [
         path(metadata)
-    )
+    ]
 
   output:
     tuple(
