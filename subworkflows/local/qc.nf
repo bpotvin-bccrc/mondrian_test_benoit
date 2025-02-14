@@ -47,8 +47,9 @@ workflow MONDRIAN_QC{
     lanes1 = fastqs_data.map{row -> tuple(row.cellid, row.fastq1)}.groupTuple(by: 0)
     lanes2 = fastqs_data.map{row -> tuple(row.cellid, row.fastq2)}.groupTuple(by: 0)
 
-    println "1"
-    println "secondary_references: ${secondary_references}"
+    println "secondary_references ${secondary_references}"
+    println "secondary_versions ${secondary_versions}"
+    println "secondary_names ${secondary_names}"
 
 
     fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map { row ->
