@@ -61,8 +61,8 @@ workflow MONDRIAN_QC{
                        secondary_reference_2+'.bwt', secondary_reference_2+'.pac', secondary_reference_2+'.sa',
                        metadata_yaml
         )
-    }.view()
-
+        println("Row content: $row")
+    }
 
     println "END"
     exit 1
