@@ -61,11 +61,12 @@ workflow MONDRIAN_QC{
                        secondary_reference_2+'.bwt', secondary_reference_2+'.pac', secondary_reference_2+'.sa',
                        metadata_yaml
         )
-
-        println "row ${row}"
     }
 
-
+    lanes.view()
+    flowcells.view()
+    lanes1.view()
+    lanes2.view()
     println "END"
     exit 1
 
