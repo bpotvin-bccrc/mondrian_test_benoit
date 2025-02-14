@@ -65,6 +65,11 @@ workflow MONDRIAN_QC{
         }
 
         tuple += [metadata_yaml]
+
+
+        println tuple.toString()
+
+
         return tuple
     }
 
