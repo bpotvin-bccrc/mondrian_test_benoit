@@ -36,8 +36,6 @@ workflow MONDRIAN_QC{
         chromosomes
         sample_id
 
-    main:
-
     fastqs_data = Channel
                .fromPath(fastqs)
                .splitCsv(header:true, sep:',')
@@ -47,10 +45,27 @@ workflow MONDRIAN_QC{
     lanes1 = fastqs_data.map{row -> tuple(row.cellid, row.fastq1)}.groupTuple(by: 0)
     lanes2 = fastqs_data.map{row -> tuple(row.cellid, row.fastq2)}.groupTuple(by: 0)
 
-    println "secondary_references ${secondary_references}"
-    println "secondary_versions ${secondary_versions}"
-    println "secondary_names ${secondary_names}"
+    fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map{
+        row -> tuple(
+            row[0], row[1], row[2], row[3], row[4],
+                       primary_reference, primary_reference_version, primary_reference_name,
+                       primary_reference+'.fai', primary_reference+'.amb', primary_reference+'.ann',
+                       primary_reference+'.bwt', primary_reference+'.pac', primary_reference+'.sa',
+                       secondary_reference_1, secondary_reference_1_version, secondary_reference_1_name,
+                       secondary_reference_1+'.fai', secondary_reference_1+'.amb', secondary_reference_1+'.ann',
+                       secondary_reference_1+'.bwt', secondary_reference_1+'.pac', secondary_reference_1+'.sa',
+                       secondary_reference_2, secondary_reference_2_version, secondary_reference_2_name,
+                       secondary_reference_2+'.fai', secondary_reference_2+'.amb', secondary_reference_2+'.ann',
+                       secondary_reference_2+'.bwt', secondary_reference_2+'.pac', secondary_reference_2+'.sa',
+                       metadata_yaml
+        )
 
+        println "row ${row}"
+    }
+
+
+    println "END"
+    exit 1
 
     fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map { row ->
         def tuple = [
