@@ -39,6 +39,10 @@ process ALIGN {
         path("${cell_id}.tar.gz")
     )
   script:
+
+    println "Cell ID: $cell_id"  // Check if cell_id is properly passed
+
+
     def lanes = lanes.join(' ')
     def flowcells = flowcells.join(' ')
 
