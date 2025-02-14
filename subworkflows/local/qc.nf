@@ -63,10 +63,10 @@ workflow MONDRIAN_QC{
         )
     }
 
-    lanes.view()
-    flowcells.view()
-    lanes1.view()
-    lanes2.view()
+    println lanes.view()
+    println flowcells.view()
+    println lanes1.view()
+    println lanes2.view()
     println "END"
     exit 1
 
