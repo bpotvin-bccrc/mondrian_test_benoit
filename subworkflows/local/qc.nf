@@ -36,6 +36,8 @@ workflow MONDRIAN_QC{
         chromosomes
         sample_id
 
+    main:
+
     fastqs_data = Channel
                .fromPath(fastqs)
                .splitCsv(header:true, sep:',')
