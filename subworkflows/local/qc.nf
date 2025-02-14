@@ -73,6 +73,8 @@ workflow MONDRIAN_QC{
 
         return tuple
     }
+
+    println fastqs.toString()
     exit 1
 
     ALIGN(secondary_references.size(), fastqs)
