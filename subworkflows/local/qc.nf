@@ -47,32 +47,14 @@ workflow MONDRIAN_QC{
     println "secondary_versions ${secondary_versions}"
     println "secondary_names ${secondary_names}"
 
-    exit 1
 
-    //def secondary_references = []
-    //def secondary_versions = []
-    //def secondary_names = []
-    //def secondary_indices = []
-    params.keySet().findAll { it.startsWith('secondary_reference_') && !it.endsWith('_version') && !it.endsWith('_name') }.each { key ->
-        
-        def versionKey = "${key}_version"
-        def nameKey = "${key}_name"
-        def reference = file(params[key] ?: "$baseDir/docs/assets/dummy_file.txt")
-        secondary_references << reference
-        secondary_versions << (params[versionKey] ?: null)
-        secondary_names << (params[nameKey] ?: null)
-        // Collect associated index files for each reference
-        secondary_indices.addAll([
-            reference + '.fai',
-            reference + '.amb',
-            reference + '.ann',
-            reference + '.bwt',
-            reference + '.pac',
-            reference + '.sa'
-        ])
+    secondary_references.eachWithIndex { item, index ->
+        println ${item}
+        //dynamicVariables."item_${index + 1}" = item
     }
 
-    println "here ${secondary_indices}"
+    exit 1
+
 
     fastqs_data = Channel
                .fromPath(fastqs)
