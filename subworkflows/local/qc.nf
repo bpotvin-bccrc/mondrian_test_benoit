@@ -64,17 +64,12 @@ workflow MONDRIAN_QC{
             ]
         }
 
+        println "here ${tuple}"
+
         tuple += [metadata_yaml]
-
-
-        println tuple.toString()
-
 
         return tuple
     }
-
-    println fastqs.toString()
-    exit 1
 
     ALIGN(fastqs)
 
