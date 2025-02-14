@@ -53,7 +53,7 @@ workflow MONDRIAN_QC{
 
     fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map { row ->
 
-        println "1"
+        println "2"
         def tuple = [
             row[0], row[1], row[2], row[3], row[4],
             primary_reference, primary_reference_version, primary_reference_name,
@@ -61,7 +61,7 @@ workflow MONDRIAN_QC{
             primary_reference + '.bwt', primary_reference + '.pac', primary_reference + '.sa'
         ]
 
-        println "tuple ${tuple}"
+        println "3"
 
         (0..<secondary_references.size()).each { i ->
             tuple += [
@@ -71,16 +71,16 @@ workflow MONDRIAN_QC{
             ]
         }
 
-        println "tuple ${tuple}"
+        println "4"
 
         tuple += [metadata_yaml]
 
-        println "tuple ${tuple}"
+        println "5"
 
         return tuple
     }
 
-    println "5".
+    println "6".
     exit 1
 
     ALIGN(secondary_references.size(), fastqs)
