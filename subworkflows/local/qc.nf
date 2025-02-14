@@ -68,7 +68,7 @@ workflow MONDRIAN_QC{
         return tuple
     }
 
-    println fastq.toString()
+    println fastqs.toString()
     exit 1
 
     ALIGN(fastqs)
