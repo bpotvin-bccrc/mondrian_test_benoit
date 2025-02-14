@@ -58,7 +58,6 @@ workflow MONDRIAN_QC{
 
 
     fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map { row ->
-        // Create a tuple starting with the primary data
         def tuple = [
             row[0], row[1], row[2], row[3], row[4],
             primary_reference, primary_reference_version, primary_reference_name,
@@ -66,9 +65,7 @@ workflow MONDRIAN_QC{
             primary_reference + '.bwt', primary_reference + '.pac', primary_reference + '.sa'
         ]
 
-        // Loop through secondary references, versions, and names and add them dynamically
         (0..<secondary_references.size()).each { i ->
-            // Add the secondary reference, version, name and related files
             tuple += [
                 secondary_references[i], secondary_versions[i], secondary_names[i],
                 secondary_references[i] + '.fai', secondary_references[i] + '.amb', secondary_references[i] + '.ann',
@@ -76,10 +73,11 @@ workflow MONDRIAN_QC{
             ]
         }
 
-        // Add metadata YAML at the end of the tuple
         tuple += [metadata_yaml]
         return tuple
     }
+
+    println "tuple ${tuple}"
 
     //fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map{
     //    row -> tuple(
