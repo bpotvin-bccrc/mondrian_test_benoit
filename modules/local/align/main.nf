@@ -41,6 +41,9 @@ process ALIGN {
   script:
     def lanes = lanes.join(' ')
     def flowcells = flowcells.join(' ')
+
+
+    println "here"
     //def supplementary_2 = ''
     //if(secondary_reference_2_name) {
     //    supplementary_2 = '--supplementary_references ' + secondary_reference_2_name + ',' + secondary_reference_2_version + ',' + secondary_reference_2
