@@ -10,21 +10,7 @@ process ALIGN {
         path(primary_reference), val(primary_reference_version), val(primary_reference_name),
         path(primary_reference_fai), path(primary_reference_amb), path(primary_reference_ann),
         path(primary_reference_bwt), path(primary_reference_pac), path(primary_reference_sa)
-    ) + (0..<secondary_references.size()).collect { i ->
-        [
-            path(secondary_references[i]),
-            val(secondary_versions[i]),
-            val(secondary_names[i]),
-            path(secondary_references[i] + '.fai'),
-            path(secondary_references[i] + '.amb'),
-            path(secondary_references[i] + '.ann'),
-            path(secondary_references[i] + '.bwt'),
-            path(secondary_references[i] + '.pac'),
-            path(secondary_references[i] + '.sa')
-        ]
-    } + [
-        path(metadata)
-    ]
+    )
 
   output:
     tuple(
