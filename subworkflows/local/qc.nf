@@ -80,7 +80,7 @@ workflow MONDRIAN_QC{
         return tuple
     }
 
-    println "6".
+    println "6"
     exit 1
 
     ALIGN(secondary_references.size(), fastqs)
