@@ -61,7 +61,7 @@ workflow MONDRIAN_QC{
             primary_reference + '.bwt', primary_reference + '.pac', primary_reference + '.sa'
         ]
 
-        println "2: ${tuple}".
+        println "tuple ${tuple}"
 
         (0..<secondary_references.size()).each { i ->
             tuple += [
@@ -71,11 +71,11 @@ workflow MONDRIAN_QC{
             ]
         }
 
-        println "3: ${tuple}".
+        println "tuple ${tuple}"
 
         tuple += [metadata_yaml]
 
-        println "4: ${tuple}".
+        println "tuple ${tuple}"
 
         return tuple
     }
