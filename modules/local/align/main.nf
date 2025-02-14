@@ -5,7 +5,7 @@ process ALIGN {
     label 'process_high'
 
   input:
-    supp_ref_size
+    val(supp_ref_size)
     tuple(
         val(cell_id), val(lanes), val(flowcells), path(fastqs1), path(fastqs2),
         path(primary_reference), val(primary_reference_version), val(primary_reference_name),
