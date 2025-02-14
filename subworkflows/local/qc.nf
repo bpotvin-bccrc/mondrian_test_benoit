@@ -72,6 +72,8 @@ workflow MONDRIAN_QC{
         return tuple
     }
 
+    exit 1
+
     ALIGN(secondary_references.size(), fastqs)
 
     CONCATALIGNMETRICS(ALIGN.out.collect{it[3]}, ALIGN.out.collect{it[4]}, sample_id+'_alignment_metrics', false)
