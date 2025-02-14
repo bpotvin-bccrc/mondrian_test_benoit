@@ -39,6 +39,15 @@ workflow MONDRIAN_QC{
     main:
 
 
+    println "primary_reference ${primary_reference}"
+    println "primary_reference_version ${primary_reference_version}"
+    println "primary_reference_name ${primary_reference_name}"
+
+    println "secondary_references ${secondary_references}"
+    println "secondary_versions ${secondary_versions}"
+    println "secondary_names ${secondary_names}"
+
+    exit 1
 
     def secondary_references = []
     def secondary_versions = []
