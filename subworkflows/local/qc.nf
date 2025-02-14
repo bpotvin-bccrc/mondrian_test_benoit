@@ -77,7 +77,7 @@ workflow MONDRIAN_QC{
         return tuple
     }
 
-    println "tuple ${tuple}"
+    println "fastqs ${fastqs}"
 
     //fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map{
     //    row -> tuple(
