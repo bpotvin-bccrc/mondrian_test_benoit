@@ -68,9 +68,6 @@ workflow MONDRIAN_QC{
         return tuple
     }
 
-    println "fastqs ${fastqs}"
-    exit 1
-
 
     ALIGN(fastqs)
 

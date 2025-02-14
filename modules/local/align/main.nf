@@ -58,7 +58,8 @@ process ALIGN {
         supplementary_references_cmd = "--supplementary_references " + refs.join(' ')
     }
 
-
+    println "supplementary_references_cmd ${supplementary_references_cmd}"
+    exit 1
     
     """
 
