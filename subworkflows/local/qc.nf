@@ -53,8 +53,6 @@ workflow MONDRIAN_QC{
 
 
     fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map { row ->
-
-        println "2"
         def tuple = [
             row[0], row[1], row[2], row[3], row[4],
             primary_reference, primary_reference_version, primary_reference_name,
