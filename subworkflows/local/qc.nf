@@ -64,6 +64,9 @@ workflow MONDRIAN_QC{
             ]
         }
 
+
+        println "here ${tuple}"
+
         tuple += [metadata_yaml]
 
         return tuple
