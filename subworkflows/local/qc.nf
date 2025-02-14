@@ -64,12 +64,9 @@ workflow MONDRIAN_QC{
             ]
         }
 
-
-        println "tuple ${tuple}"
+        println "here ${tuple}"
         tuple += [metadata_yaml]
 
-        println tuple.toString()
-        exit 1
 
         return tuple
     }
