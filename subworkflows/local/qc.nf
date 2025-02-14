@@ -68,12 +68,11 @@ workflow MONDRIAN_QC{
         println "tuple ${tuple}"
         tuple += [metadata_yaml]
 
-        println "tuple ${tuple}"
+        println tuple.toString()
         exit 1
 
         return tuple
     }
-    println "tuple ${tuple}"
     exit 1
 
     ALIGN(secondary_references.size(), fastqs)
