@@ -49,7 +49,7 @@ workflow MONDRIAN_QC{
 
 
     secondary_references.eachWithIndex { item, index ->
-        println ${item}
+        println "item ${item}""
         //dynamicVariables."item_${index + 1}" = item
     }
 
