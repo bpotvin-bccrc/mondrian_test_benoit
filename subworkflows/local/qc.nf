@@ -49,10 +49,10 @@ workflow MONDRIAN_QC{
 
     exit 1
 
-    def secondary_references = []
-    def secondary_versions = []
-    def secondary_names = []
-    def secondary_indices = []
+    //def secondary_references = []
+    //def secondary_versions = []
+    //def secondary_names = []
+    //def secondary_indices = []
     params.keySet().findAll { it.startsWith('secondary_reference_') && !it.endsWith('_version') && !it.endsWith('_name') }.each { key ->
         
         def versionKey = "${key}_version"
