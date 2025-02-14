@@ -42,10 +42,10 @@ workflow MONDRIAN_QC{
                .fromPath(fastqs)
                .splitCsv(header:true, sep:',')
 
-    lanes = fastqs_data.map{row -> tuple(row.cellid, row.laneid)}.groupTuple(by: 0).view()
-    flowcells = fastqs_data.map{row -> tuple(row.cellid, row.flowcellid)}.groupTuple(by: 0).view()
-    lanes1 = fastqs_data.map{row -> tuple(row.cellid, row.fastq1)}.groupTuple(by: 0).view()
-    lanes2 = fastqs_data.map{row -> tuple(row.cellid, row.fastq2)}.groupTuple(by: 0).view()
+    lanes = fastqs_data.map{row -> tuple(row.cellid, row.laneid)}.groupTuple(by: 0)
+    flowcells = fastqs_data.map{row -> tuple(row.cellid, row.flowcellid)}.groupTuple(by: 0)
+    lanes1 = fastqs_data.map{row -> tuple(row.cellid, row.fastq1)}.groupTuple(by: 0)
+    lanes2 = fastqs_data.map{row -> tuple(row.cellid, row.fastq2)}.groupTuple(by: 0)
 
 
     fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map { row ->
@@ -56,8 +56,6 @@ workflow MONDRIAN_QC{
             primary_reference + '.bwt', primary_reference + '.pac', primary_reference + '.sa'
         ]
 
-        println "3"
-
         (0..<secondary_references.size()).each { i ->
             tuple += [
                 secondary_references[i], secondary_versions[i], secondary_names[i],
@@ -66,16 +64,12 @@ workflow MONDRIAN_QC{
             ]
         }
 
-        println "4"
-
         tuple += [metadata_yaml]
-
-        println "5"
 
         return tuple
     }
 
-    println "6"
+    println "fastqs ${fastqs}"
     exit 1
 
     ALIGN(secondary_references.size(), fastqs)
