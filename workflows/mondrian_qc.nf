@@ -14,7 +14,7 @@ assert_required_param(params.primary_reference_version, 'primary_reference_versi
 assert_required_param(params.primary_reference_name, 'primary_reference_name')
 assert_required_param(params.secondary_reference_1, 'secondary_reference_1')
 assert_required_param(params.secondary_reference_1_version, 'secondary_reference_1_version')
-assert_required_param(params.secondary_reference_1_name, 'secondary_reference_1_name')
+assert_required_param(params.secondary_reference_1_version, 'secondary_reference_1_name')
 assert_required_param(params.gc_wig, 'gc_wig')
 assert_required_param(params.map_wig, 'map_wig')
 assert_required_param(params.quality_classifier_training_data, 'quality_classifier_training_data')
@@ -41,34 +41,16 @@ sample_id = params.sample_id
 
 
 
-def secondary_references = []
-def secondary_versions = []
-def secondary_names = []
-
-(1..10).each { i -> 
-
-
-    def referenceKey = "secondary_reference_${i}".toString()
-    def versionKey = "secondary_reference_${i}_version".toString()
-    def nameKey = "secondary_reference_${i}_name".toString()
-
-
-    def key = params.get(referenceKey, null)
-    if (key) {
-
-    
-        def ref = params[referenceKey]
-        def version = params[versionKey]
-        def name = params[nameKey]
-
-        secondary_references << file(ref)
-        secondary_versions << version
-        secondary_names << name
-        
-        
-    }
-    
+if(params.secondary_reference_2){
+    secondary_reference_2 = file(params.secondary_reference_2)
+    secondary_reference_2_version = params.secondary_reference_2_version
+    secondary_reference_2_name = params.secondary_reference_2_name
+} else {
+    secondary_reference_2 = file("$baseDir/docs/assets/dummy_file.txt")
+    secondary_reference_2_version = null
+    secondary_reference_2_name = null
 }
+
 
 
 /*
@@ -86,17 +68,18 @@ include { MONDRIAN_QC         } from '../subworkflows/local/qc'
 */
 workflow MONDRIAN_QC_PIPELINE{
 
-
-
     MONDRIAN_QC(
         fastqs,
         metadata,
         primary_reference,
         primary_reference_version,
         primary_reference_name,
-        secondary_references,        
-        secondary_versions,
-        secondary_names,
+        secondary_reference_1,
+        secondary_reference_1_version,
+        secondary_reference_1_name,
+        secondary_reference_2,
+        secondary_reference_2_version,
+        secondary_reference_2_name,
         gc_wig,
         map_wig,
         quality_classifier_training_data,

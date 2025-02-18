@@ -5,28 +5,19 @@ process ALIGN {
     label 'process_high'
 
   input:
-    val(supp_ref_size)
     tuple(
-        val(cell_id), val(lanes), val(flowcells), path(fastqs1), path(fastqs2),
-        path(primary_reference), val(primary_reference_version), val(primary_reference_name),
-        path(primary_reference_fai), path(primary_reference_amb), path(primary_reference_ann),
-        path(primary_reference_bwt), path(primary_reference_pac), path(primary_reference_sa)
-    ) + (0..<supp_ref_size).collect { i ->  // Use supp_ref_size here
-        [
-            path(secondary_references[i]),
-            val(secondary_versions[i]),
-            val(secondary_names[i]),
-            path(secondary_references[i] + '.fai'),
-            path(secondary_references[i] + '.amb'),
-            path(secondary_references[i] + '.ann'),
-            path(secondary_references[i] + '.bwt'),
-            path(secondary_references[i] + '.pac'),
-            path(secondary_references[i] + '.sa')
-        ]
-    } + [
-        path(metadata)
-    ]
-
+      val(cell_id), val(lanes), val(flowcells), path(fastqs1), path(fastqs2),
+      path(primary_reference), val(primary_reference_version), val(primary_reference_name),
+      path(primary_reference_fai), path(primary_reference_amb),path(primary_reference_ann),
+      path(primary_reference_bwt),path(primary_reference_pac),path(primary_reference_sa),
+      path(secondary_reference_1), val(secondary_reference_1_version), val(secondary_reference_1_name),
+      path(secondary_reference_1_fai), path(secondary_reference_1_amb),path(secondary_reference_1_ann),
+      path(secondary_reference_1_bwt),path(secondary_reference_1_pac),path(secondary_reference_1_sa),
+      path(secondary_reference_2), val(secondary_reference_2_version), val(secondary_reference_2_name),
+      path(secondary_reference_2_fai), path(secondary_reference_2_amb),path(secondary_reference_2_ann),
+      path(secondary_reference_2_bwt),path(secondary_reference_2_pac),path(secondary_reference_2_sa),
+      path(metadata)
+    )
   output:
     tuple(
         val(cell_id),
@@ -39,33 +30,14 @@ process ALIGN {
         path("${cell_id}.tar.gz")
     )
   script:
-
-    println "Cell ID: $cell_id"  // Check if cell_id is properly passed
-
-
     def lanes = lanes.join(' ')
     def flowcells = flowcells.join(' ')
-
-
-    println "here"
-    //def supplementary_2 = ''
-    //if(secondary_reference_2_name) {
-    //    supplementary_2 = '--supplementary_references ' + secondary_reference_2_name + ',' + secondary_reference_2_version + ',' + secondary_reference_2
-    //} else {
-    //    supplementary_2 = ''
-    //}
-
-    def supplementary_references_cmd = ''
-    if (secondary_references) {
-        def refs = []
-        for (int i = 0; i < secondary_references.size(); i++) {
-            refs << "${secondary_names[i]},${secondary_versions[i]},${secondary_references[i]}"
-        }
-        supplementary_references_cmd = "--supplementary_references " + refs.join(' ')
+    def supplementary_2 = ''
+    if(secondary_reference_2_name) {
+        supplementary_2 = '--supplementary_references ' + secondary_reference_2_name + ',' + secondary_reference_2_version + ',' + secondary_reference_2
+    } else {
+        supplementary_2 = ''
     }
-
-
-    
     """
 
         fastqs_cmd=`python -c 'x=["${lanes}","${flowcells}","${fastqs1}","${fastqs2}"];x=[v.split() for v in x];x=[",".join(v) for v in zip(*x)];x=" --fastq_pairs ".join(x);print(x)'`
@@ -75,7 +47,7 @@ process ALIGN {
         --metadata_yaml ${metadata} \
         --reference ${primary_reference_name},${primary_reference_version},${primary_reference} \
         --supplementary_references ${secondary_reference_1_name},${secondary_reference_1_version},${secondary_reference_1} \
-        ${supplementary_references_cmd} \
+        ${supplementary_2} \
         --tempdir tempdir \
         --adapter1 CTGTCTCTTATACACATCTCCGAGCCCACGAGAC \
         --adapter2 CTGTCTCTTATACACATCTGACGCTGCCGACGA \

@@ -26,9 +26,12 @@ workflow MONDRIAN_QC{
         primary_reference
         primary_reference_version
         primary_reference_name
-        secondary_references
-        secondary_versions
-        secondary_names
+        secondary_reference_1
+        secondary_reference_1_version
+        secondary_reference_1_name
+        secondary_reference_2
+        secondary_reference_2_version
+        secondary_reference_2_name
         gc_wig
         map_wig
         quality_classifier_training_data
@@ -47,35 +50,23 @@ workflow MONDRIAN_QC{
     lanes1 = fastqs_data.map{row -> tuple(row.cellid, row.fastq1)}.groupTuple(by: 0)
     lanes2 = fastqs_data.map{row -> tuple(row.cellid, row.fastq2)}.groupTuple(by: 0)
 
-
-    fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map { row ->
-        def tuple = [
+    fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map{
+        row -> tuple(
             row[0], row[1], row[2], row[3], row[4],
-            primary_reference, primary_reference_version, primary_reference_name,
-            primary_reference + '.fai', primary_reference + '.amb', primary_reference + '.ann',
-            primary_reference + '.bwt', primary_reference + '.pac', primary_reference + '.sa'
-        ]
-
-        (0..<secondary_references.size()).each { i ->
-            tuple += [
-                secondary_references[i], secondary_versions[i], secondary_names[i],
-                secondary_references[i] + '.fai', secondary_references[i] + '.amb', secondary_references[i] + '.ann',
-                secondary_references[i] + '.bwt', secondary_references[i] + '.pac', secondary_references[i] + '.sa'
-            ]
-        }
-
-
-        println "here ${tuple}"
-
-        tuple += [metadata_yaml]
-
-        return tuple
+                       primary_reference, primary_reference_version, primary_reference_name,
+                       primary_reference+'.fai', primary_reference+'.amb', primary_reference+'.ann',
+                       primary_reference+'.bwt', primary_reference+'.pac', primary_reference+'.sa',
+                       secondary_reference_1, secondary_reference_1_version, secondary_reference_1_name,
+                       secondary_reference_1+'.fai', secondary_reference_1+'.amb', secondary_reference_1+'.ann',
+                       secondary_reference_1+'.bwt', secondary_reference_1+'.pac', secondary_reference_1+'.sa',
+                       secondary_reference_2, secondary_reference_2_version, secondary_reference_2_name,
+                       secondary_reference_2+'.fai', secondary_reference_2+'.amb', secondary_reference_2+'.ann',
+                       secondary_reference_2+'.bwt', secondary_reference_2+'.pac', secondary_reference_2+'.sa',
+                       metadata_yaml
+        )
     }
 
-    println "fastqs ${fastqs}"
-    exit 1
-
-    ALIGN(secondary_references.size(), fastqs)
+    ALIGN(fastqs)
 
     CONCATALIGNMETRICS(ALIGN.out.collect{it[3]}, ALIGN.out.collect{it[4]}, sample_id+'_alignment_metrics', false)
     CONCATGCMETRICS(ALIGN.out.collect{it[5]}, ALIGN.out.collect{it[6]}, sample_id+'_gc_metrics', true)
