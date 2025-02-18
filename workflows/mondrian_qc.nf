@@ -56,7 +56,7 @@ if(params.secondary_reference_3){
     secondary_reference_3_version = params.secondary_reference_3_version
     secondary_reference_3_name = params.secondary_reference_3_name
 } else {
-    secondary_reference_3 = file("$baseDir/docs/assets/dummy_file.txt")
+    secondary_reference_3 = file("$baseDir/docs/assets/dummy_file3.txt")
     secondary_reference_3_version = null
     secondary_reference_3_name = null
 }
@@ -66,7 +66,7 @@ if(params.secondary_reference_4){
     secondary_reference_4_version = params.secondary_reference_4_version
     secondary_reference_4_name = params.secondary_reference_4_name
 } else {
-    secondary_reference_4 = file("$baseDir/docs/assets/dummy_file.txt")
+    secondary_reference_4 = file("$baseDir/docs/assets/dummy_file4.txt")
     secondary_reference_4_version = null
     secondary_reference_4_name = null
 }
@@ -76,7 +76,7 @@ if(params.secondary_reference_5){
     secondary_reference_5_version = params.secondary_reference_5_version
     secondary_reference_5_name = params.secondary_reference_5_name
 } else {
-    secondary_reference_5 = file("$baseDir/docs/assets/dummy_file.txt")
+    secondary_reference_5 = file("$baseDir/docs/assets/dummy_file5.txt")
     secondary_reference_5_version = null
     secondary_reference_5_name = null
 }
@@ -86,7 +86,7 @@ if(params.secondary_reference_6){
     secondary_reference_6_version = params.secondary_reference_6_version
     secondary_reference_6_name = params.secondary_reference_6_name
 } else {
-    secondary_reference_6 = file("$baseDir/docs/assets/dummy_file.txt")
+    secondary_reference_6 = file("$baseDir/docs/assets/dummy_file6.txt")
     secondary_reference_6_version = null
     secondary_reference_6_name = null
 }
