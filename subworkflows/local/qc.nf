@@ -85,7 +85,7 @@ workflow MONDRIAN_QC{
     }
 
     println "Step 3"
-
+    println "here : ${fastqs}"
     ALIGN(fastqs)
 
     println "Step 6"
