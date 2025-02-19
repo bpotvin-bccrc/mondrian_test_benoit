@@ -33,6 +33,8 @@ process ALIGN {
       path(secondary_reference_6_bwt),path(secondary_reference_6_pac),path(secondary_reference_6_sa),
       path(metadata)
     )
+
+    println "Step unknown2"
   output:
     tuple(
         val(cell_id),
@@ -46,7 +48,7 @@ process ALIGN {
     )
   script:
 
-    println "Step 4"
+    println "Step unknown3"
 
     def lanes = lanes.join(' ')
     def flowcells = flowcells.join(' ')
