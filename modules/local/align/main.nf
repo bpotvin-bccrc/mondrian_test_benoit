@@ -115,4 +115,6 @@ process ALIGN {
 
         rm -rf tempdir
     """
+
+    println "Step 10000"
 }
