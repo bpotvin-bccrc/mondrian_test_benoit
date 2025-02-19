@@ -19,6 +19,7 @@ process ALIGN {
       path(secondary_reference_2), val(secondary_reference_2_version), val(secondary_reference_2_name),
       path(secondary_reference_2_fai), path(secondary_reference_2_amb),path(secondary_reference_2_ann),
       path(secondary_reference_2_bwt),path(secondary_reference_2_pac),path(secondary_reference_2_sa),
+      path(metadata)
     )
 
     println "Step unknown2"
@@ -45,30 +46,7 @@ process ALIGN {
     } else {
         supplementary_2 = ''
     }
-    def supplementary_3 = ''
-    if(secondary_reference_3_name) {
-        supplementary_3 = '--supplementary_references ' + secondary_reference_3_name + ',' + secondary_reference_3_version + ',' + secondary_reference_3
-    } else {
-        supplementary_3 = ''
-    }
-    def supplementary_4 = ''
-    if(secondary_reference_4_name) {
-        supplementary_4 = '--supplementary_references ' + secondary_reference_4_name + ',' + secondary_reference_4_version + ',' + secondary_reference_4
-    } else {
-        supplementary_4 = ''
-    }
-    def supplementary_5 = ''
-    if(secondary_reference_5_name) {
-        supplementary_5 = '--supplementary_references ' + secondary_reference_5_name + ',' + secondary_reference_5_version + ',' + secondary_reference_5
-    } else {
-        supplementary_5 = ''
-    }
-    def supplementary_6 = ''
-    if(secondary_reference_6_name) {
-        supplementary_6 = '--supplementary_references ' + secondary_reference_6_name + ',' + secondary_reference_6_version + ',' + secondary_reference_6
-    } else {
-        supplementary_6 = ''
-    }
+
 
 
     println "Step 5"
@@ -103,5 +81,5 @@ process ALIGN {
         rm -rf tempdir
     """
 
-    println "Step 10000"
+    println "Step 5"
 }

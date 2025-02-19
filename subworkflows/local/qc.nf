@@ -32,18 +32,6 @@ workflow MONDRIAN_QC{
         secondary_reference_2
         secondary_reference_2_version
         secondary_reference_2_name
-        secondary_reference_3
-        secondary_reference_3_version
-        secondary_reference_3_name
-        secondary_reference_4
-        secondary_reference_4_version
-        secondary_reference_4_name
-        secondary_reference_5
-        secondary_reference_5_version
-        secondary_reference_5_name
-        secondary_reference_6
-        secondary_reference_6_version
-        secondary_reference_6_name
         gc_wig
         map_wig
         quality_classifier_training_data
@@ -85,7 +73,7 @@ workflow MONDRIAN_QC{
     }
 
     println "Step 3"
-    println "here : ${fastqs}"
+
     ALIGN(fastqs)
 
     println "Step 6"
