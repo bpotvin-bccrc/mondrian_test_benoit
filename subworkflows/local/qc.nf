@@ -32,6 +32,18 @@ workflow MONDRIAN_QC{
         secondary_reference_2
         secondary_reference_2_version
         secondary_reference_2_name
+        secondary_reference_3
+        secondary_reference_3_version
+        secondary_reference_3_name
+        secondary_reference_4
+        secondary_reference_4_version
+        secondary_reference_4_name
+        secondary_reference_5
+        secondary_reference_5_version
+        secondary_reference_5_name
+        secondary_reference_6
+        secondary_reference_6_version
+        secondary_reference_6_name
         gc_wig
         map_wig
         quality_classifier_training_data
@@ -62,6 +74,18 @@ workflow MONDRIAN_QC{
                        secondary_reference_2, secondary_reference_2_version, secondary_reference_2_name,
                        secondary_reference_2+'.fai', secondary_reference_2+'.amb', secondary_reference_2+'.ann',
                        secondary_reference_2+'.bwt', secondary_reference_2+'.pac', secondary_reference_2+'.sa',
+                       secondary_reference_3, secondary_reference_3_version, secondary_reference_3_name,
+                       secondary_reference_3+'.fai', secondary_reference_3+'.amb', secondary_reference_3+'.ann',
+                       secondary_reference_3+'.bwt', secondary_reference_3+'.pac', secondary_reference_3+'.sa',
+                       secondary_reference_4, secondary_reference_4_version, secondary_reference_4_name,
+                       secondary_reference_4+'.fai', secondary_reference_4+'.amb', secondary_reference_4+'.ann',
+                       secondary_reference_4+'.bwt', secondary_reference_4+'.pac', secondary_reference_4+'.sa',
+                       secondary_reference_5, secondary_reference_5_version, secondary_reference_5_name,
+                       secondary_reference_5+'.fai', secondary_reference_5+'.amb', secondary_reference_5+'.ann',
+                       secondary_reference_5+'.bwt', secondary_reference_5+'.pac', secondary_reference_5+'.sa',
+                       secondary_reference_6, secondary_reference_6_version, secondary_reference_6_name,
+                       secondary_reference_6+'.fai', secondary_reference_6+'.amb', secondary_reference_6+'.ann',
+                       secondary_reference_6+'.bwt', secondary_reference_6+'.pac', secondary_reference_6+'.sa',
                        metadata_yaml
         )
     }
