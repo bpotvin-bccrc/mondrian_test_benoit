@@ -5,6 +5,9 @@ process ALIGN {
     label 'process_high'
 
   input:
+
+    println "Step unknown"
+
     tuple(
       val(cell_id), val(lanes), val(flowcells), path(fastqs1), path(fastqs2),
       path(primary_reference), val(primary_reference_version), val(primary_reference_name),
@@ -80,7 +83,7 @@ process ALIGN {
 
 
     println "Step 5"
-    
+
     """
 
         fastqs_cmd=`python -c 'x=["${lanes}","${flowcells}","${fastqs1}","${fastqs2}"];x=[v.split() for v in x];x=[",".join(v) for v in zip(*x)];x=" --fastq_pairs ".join(x);print(x)'`
