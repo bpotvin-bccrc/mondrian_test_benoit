@@ -42,6 +42,9 @@ process ALIGN {
         path("${cell_id}.tar.gz")
     )
   script:
+
+    println "Step 4"
+
     def lanes = lanes.join(' ')
     def flowcells = flowcells.join(' ')
     def supplementary_2 = ''
@@ -74,6 +77,10 @@ process ALIGN {
     } else {
         supplementary_6 = ''
     }
+
+
+    println "Step 5"
+    
     """
 
         fastqs_cmd=`python -c 'x=["${lanes}","${flowcells}","${fastqs1}","${fastqs2}"];x=[v.split() for v in x];x=[",".join(v) for v in zip(*x)];x=" --fastq_pairs ".join(x);print(x)'`
