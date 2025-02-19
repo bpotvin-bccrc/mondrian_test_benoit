@@ -41,9 +41,6 @@ workflow MONDRIAN_QC{
 
     main:
 
-
-    println "Step 1"
-
     fastqs_data = Channel
                .fromPath(fastqs)
                .splitCsv(header:true, sep:',')
@@ -52,9 +49,6 @@ workflow MONDRIAN_QC{
     flowcells = fastqs_data.map{row -> tuple(row.cellid, row.flowcellid)}.groupTuple(by: 0)
     lanes1 = fastqs_data.map{row -> tuple(row.cellid, row.fastq1)}.groupTuple(by: 0)
     lanes2 = fastqs_data.map{row -> tuple(row.cellid, row.fastq2)}.groupTuple(by: 0)
-
-    println "Step 2"
-
 
     fastqs = lanes.join(flowcells).join(lanes1).join(lanes2).map{
         row -> tuple(
@@ -72,11 +66,7 @@ workflow MONDRIAN_QC{
         )
     }
 
-    println "Step 3"
-
     ALIGN(fastqs)
-
-    println "Step 6"
 
     CONCATALIGNMETRICS(ALIGN.out.collect{it[3]}, ALIGN.out.collect{it[4]}, sample_id+'_alignment_metrics', false)
     CONCATGCMETRICS(ALIGN.out.collect{it[5]}, ALIGN.out.collect{it[6]}, sample_id+'_gc_metrics', true)

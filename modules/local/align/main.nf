@@ -5,9 +5,6 @@ process ALIGN {
     label 'process_high'
 
   input:
-
-    println "Step unknown"
-
     tuple(
       val(cell_id), val(lanes), val(flowcells), path(fastqs1), path(fastqs2),
       path(primary_reference), val(primary_reference_version), val(primary_reference_name),
@@ -21,8 +18,6 @@ process ALIGN {
       path(secondary_reference_2_bwt),path(secondary_reference_2_pac),path(secondary_reference_2_sa),
       path(metadata)
     )
-
-    println "Step unknown2"
   output:
     tuple(
         val(cell_id),
@@ -35,9 +30,6 @@ process ALIGN {
         path("${cell_id}.tar.gz")
     )
   script:
-
-    println "Step unknown3"
-
     def lanes = lanes.join(' ')
     def flowcells = flowcells.join(' ')
     def supplementary_2 = ''
@@ -46,11 +38,6 @@ process ALIGN {
     } else {
         supplementary_2 = ''
     }
-
-
-
-    println "Step 5"
-
     """
 
         fastqs_cmd=`python -c 'x=["${lanes}","${flowcells}","${fastqs1}","${fastqs2}"];x=[v.split() for v in x];x=[",".join(v) for v in zip(*x)];x=" --fastq_pairs ".join(x);print(x)'`
@@ -61,10 +48,6 @@ process ALIGN {
         --reference ${primary_reference_name},${primary_reference_version},${primary_reference} \
         --supplementary_references ${secondary_reference_1_name},${secondary_reference_1_version},${secondary_reference_1} \
         ${supplementary_2} \
-        ${supplementary_3} \
-        ${supplementary_4} \
-        ${supplementary_5} \
-        ${supplementary_6} \
         --tempdir tempdir \
         --adapter1 CTGTCTCTTATACACATCTCCGAGCCCACGAGAC \
         --adapter2 CTGTCTCTTATACACATCTGACGCTGCCGACGA \
@@ -80,6 +63,4 @@ process ALIGN {
 
         rm -rf tempdir
     """
-
-    println "Step 5"
 }
